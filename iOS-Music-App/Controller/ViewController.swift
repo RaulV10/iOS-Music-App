@@ -25,9 +25,10 @@ class ViewController: UIViewController {
         
         player = Player()
         
-        let url = "http://192.168.0.161/musicApp/Rock-Espanol_La-Chispa-Adecuada.mp3"
+        // let url = "http://192.168.0.161/musicApp/Rock-Espanol_La-Chispa-Adecuada.mp3"
+        //player.playStreaming(fileURL: url)
         
-        player.playStreaming(fileURL: url)
+        retreiveSongs()
         
     }
     
@@ -75,6 +76,19 @@ class ViewController: UIViewController {
                 player.playAudio()
             }
         }
+    }
+    
+    func retreiveSongs() {
+        let url = URL(string: "http://localhost/musicApp/getMusic.php")
+    
+        let task = URLSession.shared.dataTask(with: url!) {
+            data, response, error in
+            let retreivedList = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(retreivedList)
+        }
+        
+        task.resume()
+        print("Getting songs")
     }
     
 }
