@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import AVKit
 
 class ViewController: UIViewController {
-
+    
+    var player: Player!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        player = Player()
+        
+        let url = "http://192.168.0.161/musicApp/Clasicas-Espanol_Completamente-Enamorado.mp3"
+        
+        player.playStreaming(fileURL: url)
+        
     }
-
 
 }
 
