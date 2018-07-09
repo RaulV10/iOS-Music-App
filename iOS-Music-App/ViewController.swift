@@ -11,6 +11,8 @@ import AVKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var btnPlayPause: UIButton!
+    
     var player: Player!
     
     override func viewDidLoad() {
@@ -23,5 +25,15 @@ class ViewController: UIViewController {
         
     }
 
+    @IBAction func btnPlayPausePressed(_ sender: Any) {
+        if player.avPlayer.rate > 0 {
+            player.pauseAudio()
+            btnPlayPause.setImage(UIImage(named: "icons8-play-50"), for: .normal)
+        } else {
+            player.playAudio()
+            btnPlayPause.setImage(UIImage(named: "icons8-pause-50"), for: .normal)
+        }
+    }
+    
 }
 

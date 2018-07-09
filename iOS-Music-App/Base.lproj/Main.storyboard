@@ -17,13 +17,49 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6l-hO-d1y">
+                                <rect key="frame" x="0.0" y="592" width="375" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXn-Ig-WIV">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                        <state key="normal" image="icons8-pause-50">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnPlayPausePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xFS-Ua-C7Q"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="qXn-Ig-WIV" firstAttribute="width" secondItem="C6l-hO-d1y" secondAttribute="width" id="PGf-yc-9Kn"/>
+                                    <constraint firstItem="qXn-Ig-WIV" firstAttribute="height" secondItem="C6l-hO-d1y" secondAttribute="height" id="f84-vf-tdo"/>
+                                    <constraint firstAttribute="height" constant="75" id="hNT-LN-nhr"/>
+                                    <constraint firstItem="qXn-Ig-WIV" firstAttribute="centerY" secondItem="C6l-hO-d1y" secondAttribute="centerY" id="w4M-ar-Byh"/>
+                                    <constraint firstItem="qXn-Ig-WIV" firstAttribute="centerX" secondItem="C6l-hO-d1y" secondAttribute="centerX" id="z7J-uL-tHn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="C6l-hO-d1y" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0UC-pm-bzY"/>
+                            <constraint firstItem="C6l-hO-d1y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="BgQ-10-iS7"/>
+                            <constraint firstItem="C6l-hO-d1y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jPB-YS-b0S"/>
+                            <constraint firstItem="C6l-hO-d1y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ln1-xf-mpg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="btnPlayPause" destination="qXn-Ig-WIV" id="z60-xN-0Oc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86" y="130"/>
+            <point key="canvasLocation" x="85.599999999999994" y="129.98500749625188"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-pause-50" width="37.5" height="37.5"/>
+    </resources>
 </document>
