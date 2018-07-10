@@ -8,6 +8,7 @@
 
 import Foundation
 import AVKit
+import MediaPlayer
 
 class Player {
     
@@ -22,6 +23,9 @@ class Player {
         
         avPlayer = AVPlayer(url: url!)
         avPlayer.play()
+        
+        setPlayingScreen(fileURL: fileURL)
+        
         print("Playing stream")
     }
     
@@ -35,6 +39,20 @@ class Player {
         if avPlayer.rate > 0 && avPlayer.error == nil {
             avPlayer.pause()
         }
+    }
+    
+    func setPlayingScreen(fileURL: String) {
+        let urlArray = fileURL.split(separator: "/")
+        let songNameWithExt = urlArray[urlArray.endIndex-1]
+        
+        print(songNameWithExt)
+        
+        let songInfo = [
+            MPMediaItemPropertyTitle: songNameWithExt,
+            MPMediaItemPropertyArtist: "Raul Villarreal"
+        ]
+        
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
     }
     
 }
