@@ -9,9 +9,10 @@
 import UIKit
 import AVKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var btnPlayPause: UIButton!
+    @IBOutlet weak var tblSongs: UITableView!
     
     var player: Player!
     var songs: [Song] = []
@@ -29,6 +30,8 @@ class ViewController: UIViewController {
         // let url = "http://192.168.0.161/musicApp/Rock-Espanol_La-Chispa-Adecuada.mp3"
         //player.playStreaming(fileURL: url)
         
+        tblSongs.delegate = self
+        tblSongs.dataSource = self
         retreiveSongs()
         
     }
@@ -104,7 +107,25 @@ class ViewController: UIViewController {
             for s in songs {
                 print(s.getNombre())
             }
+            
+            DispatchQueue.main.async {
+                self.tblSongs.reloadData()
+            }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return songs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath) as! SongCell
+        cell.lblName.text = songs[indexPath.row].getNombre()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
