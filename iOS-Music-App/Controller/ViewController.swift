@@ -13,9 +13,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var btnPlayPause: UIButton!
     @IBOutlet weak var tblSongs: UITableView!
+    @IBOutlet weak var lblPlaying: UILabel!
     
     var player: Player!
     var songs: [Song] = []
+    
+    var currentId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +59,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func btnLikePressed(_ sender: Any) {
+        if let id = currentId {
+            songLiked(id: id)
+        }
+    }
+    
+    @IBAction func btnSharePressed(_ sender: Any) {
+        
+    }
+    
     override func remoteControlReceived(with event: UIEvent?) {
         if event!.type == UIEvent.EventType.remoteControl {
             if event!.subtype == UIEvent.EventSubtype.remoteControlPause {
@@ -83,7 +96,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func retreiveSongs() {
-        let url = URL(string: "http://localhost/musicApp/getMusic.php")
+        let url = URL(string: "http://192.168.0.161/musicApp/getMusic.php")
     
         let task = URLSession.shared.dataTask(with: url!) {
             data, response, error in
@@ -94,6 +107,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         task.resume()
         print("Getting songs")
+    }
+    
+    func songPlayed(id: Int) {
+        let url = URL(string: "http://192.168.0.161/musicApp/addPlays.php?idMusic=\(String(id))")
+        
+        let task = URLSession.shared.dataTask(with: url!) {
+            data, response, error in
+            let retreivedData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(retreivedData!)        }
+        
+        task.resume()
+        print("Hearing the song")
+    }
+    
+    func songLiked(id: Int) {
+        let url = URL(string: "http://192.168.0.161/musicApp/addLikes.php?idMusic=\(String(id))")
+        
+        let task = URLSession.shared.dataTask(with: url!) {
+            data, response, error in
+            let retreivedData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(retreivedData!)        }
+        
+        task.resume()
+        print("Like song")
     }
     
     func parseSongs(data: NSString) {
@@ -118,14 +155,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return songs.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath) as! SongCell
-        cell.lblName.text = songs[indexPath.row].getNombre()
+        cell.lblName.text = songs[indexPath.row].getCleanName()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        player.playStreaming(fileURL: "http://192.168.0.161/musicApp/\(songs[indexPath.row].getNombre())")
+        lblPlaying.text = "Playing: \(songs[indexPath.row].getCleanName())"
+        songPlayed(id: songs[indexPath.row].getId())
+        currentId = songs[indexPath.row].getId()
     }
     
 }

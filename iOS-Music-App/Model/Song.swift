@@ -29,6 +29,10 @@ class Song {
         return nombre
     }
     
+    func getCleanName() -> String {
+        return String(nombre.dropLast(4))
+    }
+    
     func getLikes() -> Int {
         return likes
     }
